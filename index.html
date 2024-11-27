@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Timbre Edificio 3</title>
-   <style>
+  <style>
     /* Fondo para toda la página */
     body {
       background-image: url('back1.jpg'); /* Cambia por la ruta de tu imagen */
@@ -47,35 +47,41 @@
     button:hover {
       background-color: #45a049;
     }
+
+    /* Cuadro blanco para secciones */
+    .content-box {
+      background-color: white;
+      color: black;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 20px auto;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
   </style>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
-<div style="
-  background-color: white; 
-  color: black; 
-  padding: 20px; 
-  border-radius: 10px; 
-  max-width: 600px; 
-  margin: 20px auto; 
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+<div class="content-box">
   <h1>Timbre Edificio 3</h1>
-  <p style="font-size: 14px; color: gray;">Si queres que tu Departamento este, mandame un wsp a  11 3898 4426.</p>
+  <p style="font-size: 14px; color: gray;">Si quieres que tu departamento esté incluido, mándame un mensaje a WhatsApp al 11 3898 4426.</p>
 </div>
-  
+
 <!-- Selección de Puerta -->
-<label for="puerta">Selecciona la puerta:</label><br>
-<select id="puerta" onchange="mostrarDepartamentos()">
-  <option value="" disabled selected>Elige una puerta</option>
-  <option value="1">Puerta 1</option>
-  <option value="2">Puerta 2</option>
-  <option value="3">Puerta 3</option>
-</select>
+<div class="content-box">
+  <label for="puerta">Selecciona la puerta:</label><br>
+  <select id="puerta" onchange="mostrarDepartamentos()">
+    <option value="" disabled selected>Elige una puerta</option>
+    <option value="1">Puerta 1</option>
+    <option value="2">Puerta 2</option>
+    <option value="3">Puerta 3</option>
+  </select>
+</div>
 
 <!-- Selección de Departamento -->
-<div id="departamentoDiv" style="display: none;">
+<div class="content-box" id="departamentoDiv" style="display: none;">
   <label for="departamento">Selecciona el departamento:</label><br>
   <select id="departamento">
     <option value="" disabled selected>Elige un departamento</option>
@@ -83,7 +89,7 @@
 </div>
 
 <!-- Formulario de Datos -->
-<div id="formularioDiv" style="display: none;">
+<div class="content-box" id="formularioDiv" style="display: none;">
   <label for="nombre">Tu nombre:</label><br>
   <input type="text" id="nombre" placeholder="Escribe tu nombre"><br>
 
@@ -91,53 +97,31 @@
   <textarea id="mensaje" rows="4" placeholder="Escribe tu mensaje"></textarea><br>
 
   <!-- CAPTCHA -->
-  <div class="g-recaptcha" data-sitekey=6Le43IsqAAAAAGqfAHqnnX_-EiraUfixmcjZXyhH></div>
+  <div class="g-recaptcha" data-sitekey="6Le43IsqAAAAAGqfAHqnnX_-EiraUfixmcjZXyhH"></div>
   <br>
 
-  <button onclick="enviarWhatsApp()">Enviar</button>
+  <!-- Botón para enviar a WhatsApp -->
+  <button onclick="enviarWhatsApp()">Enviar WhatsApp</button>
+  
+  <!-- Botón para llamar -->
+  <button onclick="realizarLlamada()">Llamar</button>
 </div>
 
 <script>
   // Datos de departamentos según puerta
   const departamentosPorPuerta = {
     1: [
-      { nombre: "Piso  PB / Departamento B", numero: "0000000000" },
-      { nombre: "Piso  PB / Departamento A", numero: "0000000000" },
-      { nombre: "Piso  1 / Departamento B", numero: "0000000000" },
-      { nombre: "Piso  1 / Departamento A", numero: "0000000000" },
-      { nombre: "Piso  2 / Departamento D", numero: "0000000000" },
-      { nombre: "Piso  2 / Departamento A", numero: "0000000000" },
-      { nombre: "Piso  3 / Departamento B", numero: "0000000000" },
-      { nombre: "Piso  3 / Departamento A", numero: "0000000000" }
+      { nombre: "Piso PB / Departamento A", numero: "5491111111111" },
+      { nombre: "Piso PB / Departamento B", numero: "5491222222222" }
     ],
     2: [
-      { nombre: "Piso PB /Departamento B", numero: "0000000000" },
-      { nombre: "Piso PB /Departamento D", numero: "0000000000" },
-      { nombre: "Piso PB /Departamento C", numero: "0000000000" },
-      { nombre: "Piso 1 /Departamento E", numero: "0000000000" },
-      { nombre: "Piso 1 /Departamento D", numero: "0000000000" },
-      { nombre: "Piso 1 /Departamento C", numero: "0000000000" },
-      { nombre: "Piso 2 /Departamento E", numero: "0000000000" },
-      { nombre: "Piso 2 /Departamento D", numero: "5491131760605" },
-      { nombre: "Piso 2 /Departamento C", numero: "0000000000" },
-      { nombre: "Piso 3 /Departamento D", numero: "0000000000" },
-      { nombre: "Piso 3 /Departamento C", numero: "0000000000" }
+      { nombre: "Piso 1 / Departamento C", numero: "5491333333333" },
+      { nombre: "Piso 1 / Departamento D", numero: "5491444444444" }
     ],
     3: [
-    { nombre: "Piso  PB / Departamento H", numero: "0000000000" },
-    { nombre: "Piso  PB / Departamento G", numero: "0000000000" },
-    { nombre: "Piso  PB / Departamento F", numero: "0000000000" },
-    { nombre: "Piso  1 / Departamento H", numero: "0000000000" },
-    { nombre: "Piso  1 / Departamento G", numero: "0000000000" },
-    { nombre: "Piso  1 / Departamento F", numero: "0000000000" },
-    { nombre: "Piso  2 / Departamento H", numero: "0000000000" },
-    { nombre: "Piso  2 / Departamento G", numero: "0000000000" },
-    { nombre: "Piso  2 / Departamento F", numero: "0000000000" },
-    { nombre: "Piso  3 / Departamento H", numero: "0000000000" },
-    { nombre: "Piso  3 / Departamento G", numero: "0000000000" },
-    { nombre: "Piso  3 / Departamento F", numero: "0000000000" },
-    { nombre: "Piso  3 / Departamento G", numero: "0000000000" }
-    ],
+      { nombre: "Piso 2 / Departamento E", numero: "5491555555555" },
+      { nombre: "Piso 2 / Departamento F", numero: "5491666666666" }
+    ]
   };
 
   // Mostrar departamentos según la puerta seleccionada
@@ -153,7 +137,7 @@
     if (puerta && departamentosPorPuerta[puerta]) {
       departamentosPorPuerta[puerta].forEach((dep) => {
         const option = document.createElement("option");
-        option.value = dep.numero; // Número de WhatsApp
+        option.value = dep.numero; // Número de teléfono
         option.textContent = dep.nombre; // Nombre del departamento
         departamentoSelect.appendChild(option);
       });
@@ -168,7 +152,7 @@
     document.getElementById("formularioDiv").style.display = "block";
   });
 
-  // Verificar CAPTCHA y enviar datos a WhatsApp
+  // Enviar datos a WhatsApp
   function enviarWhatsApp() {
     const captchaResponse = grecaptcha.getResponse();
     if (!captchaResponse) {
@@ -189,6 +173,19 @@
       `Hola, soy ${nombre}. ${mensaje}`
     )}`;
     window.open(url, "_blank"); // Abrir WhatsApp en una nueva pestaña
+  }
+
+  // Realizar llamada directa
+  function realizarLlamada() {
+    const numero = document.getElementById("departamento").value;
+
+    if (!numero) {
+      alert("Por favor, selecciona un departamento.");
+      return;
+    }
+
+    // Abrir el marcador telefónico con el número seleccionado
+    window.location.href = `tel:${numero}`;
   }
 </script>
 
