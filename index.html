@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Timbre QR</title>
+  <title>Timbre QR con CAPTCHA</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -27,10 +27,11 @@
       background-color: #45a049;
     }
   </style>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
-<h1>Timbre Virtual</h1>
+<h1>Timbre Edificio 3</h1>
 
 <!-- Selección de Puerta -->
 <label for="puerta">Selecciona la puerta:</label><br>
@@ -55,6 +56,10 @@
 
   <label for="mensaje">Tu mensaje:</label><br>
   <textarea id="mensaje" rows="4" placeholder="Escribe tu mensaje"></textarea><br>
+
+  <!-- CAPTCHA -->
+  <div class="g-recaptcha" data-sitekey=6Le43IsqAAAAAGqfAHqnnX_-EiraUfixmcjZXyhH></div>
+  <br>
 
   <button onclick="enviarWhatsApp()">Enviar</button>
 </div>
@@ -100,8 +105,14 @@
     document.getElementById("formularioDiv").style.display = "block";
   });
 
-  // Enviar datos a WhatsApp
+  // Verificar CAPTCHA y enviar datos a WhatsApp
   function enviarWhatsApp() {
+    const captchaResponse = grecaptcha.getResponse();
+    if (!captchaResponse) {
+      alert("Por favor, verifica el CAPTCHA.");
+      return;
+    }
+
     const numero = document.getElementById("departamento").value;
     const nombre = document.getElementById("nombre").value.trim();
     const mensaje = document.getElementById("mensaje").value.trim();
