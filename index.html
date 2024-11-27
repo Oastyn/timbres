@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timbre QR</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    select, input, textarea, button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+      width: 80%;
+      max-width: 400px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Timbre Virtual</h1>
+
+<!-- Selección de Puerta -->
+<label for="puerta">Selecciona la puerta:</label><br>
+<select id="puerta" onchange="mostrarDepartamentos()">
+  <option value="" disabled selected>Elige una puerta</option>
+  <option value="A">Puerta A</option>
+  <option value="B">Puerta B</option>
+</select>
+
+<!-- Selección de Departamento -->
+<div id="departamentoDiv" style="display: none;">
+  <label for="departamento">Selecciona el departamento:</label><br>
+  <select id="departamento">
+    <option value="" disabled selected>Elige un departamento</option>
+  </select>
+</div>
+
+<!-- Formulario de Datos -->
+<div id="formularioDiv" style="display: none;">
+  <label for="nombre">Tu nombre:</label><br>
+  <input type="text" id="nombre" placeholder="Escribe tu nombre"><br>
+
+  <label for="mensaje">Tu mensaje:</label><br>
+  <textarea id="mensaje" rows="4" placeholder="Escribe tu mensaje"></textarea><br>
+
+  <button onclick="enviarWhatsApp()">Enviar</button>
+</div>
+
+<script>
+  // Datos de departamentos según puerta
+  const departamentosPorPuerta = {
+    A: [
+      { nombre: "Departamento 101", numero: "5491111111111" },
+      { nombre: "Departamento 102", numero: "5491222222222" }
+    ],
+    B: [
+      { nombre: "Departamento 201", numero: "5491333333333" },
+      { nombre: "Departamento 202", numero: "5491444444444" }
+    ]
+  };
+
+  // Mostrar departamentos según la puerta seleccionada
+  function mostrarDepartamentos() {
+    const puerta = document.getElementById("puerta").value;
+    const departamentoSelect = document.getElementById("departamento");
+    const departamentoDiv = document.getElementById("departamentoDiv");
+    const formularioDiv = document.getElementById("formularioDiv");
+
+    // Limpiar select de departamentos
+    departamentoSelect.innerHTML = '<option value="" disabled selected>Elige un departamento</option>';
+
+    if (puerta && departamentosPorPuerta[puerta]) {
+      departamentosPorPuerta[puerta].forEach((dep) => {
+        const option = document.createElement("option");
+        option.value = dep.numero; // Número de WhatsApp
+        option.textContent = dep.nombre; // Nombre del departamento
+        departamentoSelect.appendChild(option);
+      });
+
+      departamentoDiv.style.display = "block";
+      formularioDiv.style.display = "none";
+    }
+  }
+
+  // Mostrar formulario al seleccionar un departamento
+  document.getElementById("departamento").addEventListener("change", () => {
+    document.getElementById("formularioDiv").style.display = "block";
+  });
+
+  // Enviar datos a WhatsApp
+  function enviarWhatsApp() {
+    const numero = document.getElementById("departamento").value;
+    const nombre = document.getElementById("nombre").value.trim();
+    const mensaje = document.getElementById("mensaje").value.trim();
+
+    if (!nombre || !mensaje || !numero) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(
+      `Hola, soy ${nombre}. ${mensaje}`
+    )}`;
+    window.open(url, "_blank"); // Abrir WhatsApp en una nueva pestaña
+  }
+</script>
+
+</body>
+</html>
