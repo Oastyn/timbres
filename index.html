@@ -37,8 +37,9 @@
 <label for="puerta">Selecciona la puerta:</label><br>
 <select id="puerta" onchange="mostrarDepartamentos()">
   <option value="" disabled selected>Elige una puerta</option>
-  <option value="A">Puerta A</option>
-  <option value="B">Puerta B</option>
+  <option value="1">Puerta A</option>
+  <option value="2">Puerta B</option>
+  <option value="3">Puerta B</option>
 </select>
 
 <!-- Selección de Departamento -->
@@ -67,14 +68,18 @@
 <script>
   // Datos de departamentos según puerta
   const departamentosPorPuerta = {
-    A: [
+    1: [
       { nombre: "Departamento 101", numero: "5491111111111" },
       { nombre: "Departamento 102", numero: "5491222222222" }
     ],
-    B: [
+    2: [
       { nombre: "Departamento 201", numero: "5491333333333" },
       { nombre: "Departamento 202", numero: "5491444444444" }
-    ]
+    ],
+    3: [
+      { nombre: "Departamento 101", numero: "5491111111111" },
+      { nombre: "Departamento 102", numero: "5491222222222" }
+    ],
   };
 
   // Mostrar departamentos según la puerta seleccionada
