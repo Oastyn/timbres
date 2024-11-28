@@ -247,18 +247,24 @@
     window.open(url, "_blank"); // Abrir WhatsApp en una nueva pestaña
   }
 
-  // Realizar llamada directa
-  function realizarLlamada() {
-    const numero = document.getElementById("departamento").value;
-
-    if (!numero) {
-      alert("Por favor, selecciona un departamento.");
-      return;
-    }
-
-    // Abrir el marcador telefónico con el número seleccionado
-    window.location.href = `tel:${numero}`;
+// Realizar llamada directa con CAPTCHA
+function realizarLlamada() {
+  const captchaResponse = grecaptcha.getResponse();
+  if (!captchaResponse) {
+    alert("Por favor, verifica el CAPTCHA.");
+    return;
   }
+
+  const numero = document.getElementById("departamento").value;
+
+  if (!numero) {
+    alert("Por favor, selecciona un departamento.");
+    return;
+  }
+
+  // Abrir el marcador telefónico con el número seleccionado
+  window.location.href = `tel:${numero}`;
+}
 </script>
 
 </body>
