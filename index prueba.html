@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Timbre Edificios</title>
   <style>
-    /* Estilo básico */
     body {
       background-image: url('back1.jpg');
       background-size: cover;
@@ -52,8 +51,11 @@
       text-align: center;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+
+    .hidden {
+      display: none;
+    }
   </style>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
@@ -79,7 +81,7 @@
 </div>
 
 <!-- Selección de Puerta -->
-<div class="content-box" id="puertaDiv" style="display: none;">
+<div class="content-box hidden" id="puertaDiv">
   <label for="puerta">Selecciona la puerta:</label>
   <select id="puerta" onchange="mostrarDepartamentos()">
     <option value="" disabled selected>Elige una puerta</option>
@@ -90,7 +92,7 @@
 </div>
 
 <!-- Selección de Departamento -->
-<div class="content-box" id="departamentoDiv" style="display: none;">
+<div class="content-box hidden" id="departamentoDiv">
   <label for="departamento">Selecciona el departamento:</label>
   <select id="departamento" onchange="habilitarOpciones()">
     <option value="" disabled selected>Elige un departamento</option>
@@ -98,16 +100,12 @@
 </div>
 
 <!-- Formulario de Datos -->
-<div class="content-box" id="formularioDiv" style="display: none;">
+<div class="content-box hidden" id="formularioDiv">
   <label for="nombre">Tu nombre:</label><br>
   <input type="text" id="nombre" placeholder="Escribe tu nombre"><br>
 
   <label for="mensaje">Tu mensaje:</label><br>
   <textarea id="mensaje" rows="4" placeholder="Escribe tu mensaje"></textarea><br>
-
-  <!-- CAPTCHA -->
-  <div class="g-recaptcha" data-sitekey="6Le43IsqAAAAAGqfAHqnnX_-EiraUfixmcjZXyhH"></div>
-  <br>
 
   <!-- Botón para enviar a WhatsApp -->
   <button id="btnWhatsApp" onclick="enviarWhatsApp()" disabled>Enviar WhatsApp</button>
@@ -127,9 +125,12 @@
   const datos = {
     1: {
       1: [{ nombre: "PB A", numero: "1122334455" }, { nombre: "PB B", numero: "1122334456" }],
-      2: [{ nombre: "1A", numero: "1122334457" }]
+      2: [{ nombre: "1A", numero: "1122334457" }, { nombre: "1B", numero: "1122334458" }]
     },
-    // Añadir más edificios y puertas según sea necesario...
+    2: {
+      1: [{ nombre: "PB A", numero: "1122334466" }, { nombre: "PB B", numero: "1122334477" }],
+      2: [{ nombre: "1A", numero: "1122334488" }]
+    }
   };
 
   function mostrarPuertas() {
@@ -138,8 +139,8 @@
     const departamentoDiv = document.getElementById("departamentoDiv");
 
     if (edificio) {
-      puertaDiv.style.display = "block";
-      departamentoDiv.style.display = "none";
+      puertaDiv.classList.remove("hidden");
+      departamentoDiv.classList.add("hidden");
     }
   }
 
@@ -159,7 +160,7 @@
         departamentoSelect.appendChild(option);
       });
 
-      departamentoDiv.style.display = "block";
+      departamentoDiv.classList.remove("hidden");
     }
   }
 
