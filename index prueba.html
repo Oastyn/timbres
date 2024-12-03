@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Timbre Edificios</title>
+  <title>Timbre Edificio 3</title>
   <style>
+    /* Fondo para toda la página */
     body {
-      background-image: url('back1.jpg');
+      background-image: url('back1.jpg'); /* Cambia por la ruta de tu imagen */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -19,6 +20,12 @@
     h1 {
       font-size: 48px;
       margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 14px;
+      color: lightgray;
+      margin-bottom: 20px;
     }
 
     select, input, textarea, button {
@@ -41,6 +48,7 @@
       background-color: #45a049;
     }
 
+    /* Cuadro blanco para secciones */
     .content-box {
       background-color: white;
       color: black;
@@ -51,24 +59,69 @@
       text-align: center;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-
-    .hidden {
-      display: none;
-    }
   </style>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
 <div class="content-box">
-  <h1>Timbre Edificios</h1>
-  <p>Selecciona tu edificio, puerta y departamento para continuar.</p>
+  <h1>Timbre Edificio</h1>
+  <p style="font-size: 16px; color: gray; text-align: center;">
+  Si quieres que tu departamento esté incluido, mándame un mensaje a  WhatsApp al          
+  <a href="https://wa.me/5491138984426" target="_blank" style="color: blackgreen; text-decoration: none;">
+    11 3898 4426
+  </a>
+    , o podes completar el siguiente formulario.
+</p>
+  <div style="text-align: center; margin-top: 24px;">
+    <button 
+        onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScCYWAWLMzH9QeTylZOV6ZmWd75MBYXNV4Z0nVFb6ptZ5chTw/viewform', '_blank');" 
+        style="
+            background-color: #4CAF50; 
+            color: white; 
+            font-size: 16px; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer;
+        ">
+        Completar Formulario
+    </button>
+</div>
+    <p style="font-size: 16px; color: gray; text-align: center;">
+  Aprovecha y unite al grupo de Whatsapp del Barrio!         
+</p>
+  <div style="text-align: center; margin-top: 24px;">
+  <a href="https://chat.whatsapp.com/IXwFoP0DEcEI5xPZpCxbXw" target="_blank" style="text-decoration: none;">
+    <button style="
+      background-color: #25D366;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    ">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 20px; height: 20px;">
+      Unirme al grupo de WhatsApp
+    </button>
+  </a>
+</div>
 </div>
 
-<!-- Selección de Edificio -->
+<!-- Selección de Puerta -->
+
 <div class="content-box">
-  <label for="edificio">Selecciona el edificio:</label>
+  <h1>Timbre Edificio</h1>
+  <label for="edificio">Selecciona el edificio:</label><br>
   <select id="edificio" onchange="mostrarPuertas()">
     <option value="" disabled selected>Elige un edificio</option>
+    <!-- Lista de edificios -->
     <option value="1">Edificio 1</option>
     <option value="2">Edificio 2</option>
     <option value="3">Edificio 3</option>
@@ -81,127 +134,130 @@
 </div>
 
 <!-- Selección de Puerta -->
-<div class="content-box hidden" id="puertaDiv">
-  <label for="puerta">Selecciona la puerta:</label>
+<div class="content-box" id="puertaDiv" style="display: none;">
+  <label for="puerta">Selecciona la puerta:</label><br>
   <select id="puerta" onchange="mostrarDepartamentos()">
     <option value="" disabled selected>Elige una puerta</option>
-    <option value="1">Puerta 1</option>
-    <option value="2">Puerta 2</option>
-    <option value="3">Puerta 3</option>
   </select>
 </div>
 
 <!-- Selección de Departamento -->
-<div class="content-box hidden" id="departamentoDiv">
-  <label for="departamento">Selecciona el departamento:</label>
-  <select id="departamento" onchange="habilitarOpciones()">
+<div class="content-box" id="departamentoDiv" style="display: none;">
+  <label for="departamento">Selecciona el departamento:</label><br>
+  <select id="departamento">
     <option value="" disabled selected>Elige un departamento</option>
   </select>
 </div>
 
 <!-- Formulario de Datos -->
-<div class="content-box hidden" id="formularioDiv">
+<div class="content-box" id="formularioDiv" style="display: none;">
   <label for="nombre">Tu nombre:</label><br>
   <input type="text" id="nombre" placeholder="Escribe tu nombre"><br>
 
   <label for="mensaje">Tu mensaje:</label><br>
   <textarea id="mensaje" rows="4" placeholder="Escribe tu mensaje"></textarea><br>
 
-  <!-- Botón para enviar a WhatsApp -->
-  <button id="btnWhatsApp" onclick="enviarWhatsApp()" disabled>Enviar WhatsApp</button>
-  
-  <!-- Botón para llamar -->
-  <button id="btnLlamar" onclick="realizarLlamada()" disabled>Llamar</button>
-</div>
+  <div class="g-recaptcha" data-sitekey="6Le43IsqAAAAAGqfAHqnnX_-EiraUfixmcjZXyhH"></div>
+  <br>
 
-<!-- Botón para Instructivo de Cámaras -->
-<div class="content-box">
-  <button onclick="window.open('camaras.pdf', '_blank');" style="background-color: #FF5722; color: white; font-size: 16px; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);">
-    Instructivo CAMARAS
-  </button>
+  <button onclick="enviarWhatsApp()">Enviar WhatsApp</button>
+  <button onclick="realizarLlamada()">Llamar</button>
 </div>
 
 <script>
   const datos = {
-    1: {
-      1: [{ nombre: "PB A", numero: "1122334455" }, { nombre: "PB B", numero: "1122334456" }],
-      2: [{ nombre: "1A", numero: "1122334457" }, { nombre: "1B", numero: "1122334458" }]
+    edificios: {
+      1: { puertas: [1, 2, 3] },
+      2: { puertas: [1, 2, 3] },
+      3: { puertas: [1, 2, 3] },
+      4: { puertas: [1, 2, 3] },
+      5: { puertas: [1, 2, 3] },
+      6: { puertas: [1, 2, 3] },
+      7: { puertas: [1, 2, 3] },
+      8: { puertas: [1, 2, 3] }
     },
-    2: {
-      1: [{ nombre: "PB A", numero: "1122334466" }, { nombre: "PB B", numero: "1122334477" }],
-      2: [{ nombre: "1A", numero: "1122334488" }]
+    departamentos: {
+      "1-1": [{ nombre: "Piso 1 / Dpto A", numero: "123456789" }],
+      // Añade más departamentos aquí...
     }
   };
 
   function mostrarPuertas() {
     const edificio = document.getElementById("edificio").value;
+    const puertaSelect = document.getElementById("puerta");
     const puertaDiv = document.getElementById("puertaDiv");
-    const departamentoDiv = document.getElementById("departamentoDiv");
 
-    if (edificio) {
-      puertaDiv.classList.remove("hidden");
-      departamentoDiv.classList.add("hidden");
+    puertaSelect.innerHTML = '<option value="" disabled selected>Elige una puerta</option>';
+    if (edificio && datos.edificios[edificio]) {
+      datos.edificios[edificio].puertas.forEach(puerta => {
+        const option = document.createElement("option");
+        option.value = `${edificio}-${puerta}`;
+        option.textContent = `Puerta ${puerta}`;
+        puertaSelect.appendChild(option);
+      });
+      puertaDiv.style.display = "block";
     }
   }
 
   function mostrarDepartamentos() {
-    const edificio = document.getElementById("edificio").value;
     const puerta = document.getElementById("puerta").value;
     const departamentoSelect = document.getElementById("departamento");
     const departamentoDiv = document.getElementById("departamentoDiv");
 
     departamentoSelect.innerHTML = '<option value="" disabled selected>Elige un departamento</option>';
-
-    if (datos[edificio] && datos[edificio][puerta]) {
-      datos[edificio][puerta].forEach(dep => {
+    if (puerta && datos.departamentos[puerta]) {
+      datos.departamentos[puerta].forEach(dep => {
         const option = document.createElement("option");
         option.value = dep.numero;
         option.textContent = dep.nombre;
         departamentoSelect.appendChild(option);
       });
-
-      departamentoDiv.classList.remove("hidden");
-    }
-  }
-
-  function habilitarOpciones() {
-    const btnWhatsApp = document.getElementById("btnWhatsApp");
-    const btnLlamar = document.getElementById("btnLlamar");
-    const departamento = document.getElementById("departamento").value;
-
-    if (departamento) {
-      btnWhatsApp.disabled = false;
-      btnLlamar.disabled = false;
+      departamentoDiv.style.display = "block";
     }
   }
 
   function enviarWhatsApp() {
+    const captchaResponse = grecaptcha.getResponse();
+    if (!captchaResponse) {
+      alert("Por favor, verifica el CAPTCHA.");
+      return;
+    }
     const numero = document.getElementById("departamento").value;
     const nombre = document.getElementById("nombre").value.trim();
     const mensaje = document.getElementById("mensaje").value.trim();
 
-    if (!nombre || !mensaje || !numero) {
+    if (!numero || !nombre || !mensaje) {
       alert("Por favor, completa todos los campos.");
       return;
     }
 
-    const url = `https://wa.me/${numero}?text=${encodeURIComponent(
-      `Hola, soy ${nombre}. ${mensaje}`
-    )}`;
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(`Hola, soy ${nombre}. ${mensaje}`)}`;
     window.open(url, "_blank");
   }
 
   function realizarLlamada() {
     const numero = document.getElementById("departamento").value;
-
-    if (!numero) {
-      alert("Por favor, selecciona un departamento.");
-      return;
-    }
-
-    window.location.href = `tel:${numero}`;
+    if (numero) window.location.href = `tel:${numero}`;
   }
 </script>
 
 </body>
+<!-- Botón para abrir o descargar un archivo PDF -->
+<div style="text-align: center; margin-top: 20px;">
+  <button 
+      onclick="window.open('camaras.pdf', '_blank');" 
+      style="
+          background-color: #FF5722; 
+          color: white; 
+          font-size: 16px; 
+          padding: 12px 24px; 
+          border: none; 
+          border-radius: 5px; 
+          cursor: pointer; 
+          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+      ">
+      Instructivo CAMARAS
+  </button>
+</div>
+
 </html>
