@@ -198,47 +198,41 @@
       puertaDiv.style.display = "block";
     }
   }
-
+<script>
   function mostrarDepartamentos() {
     const puerta = document.getElementById("puerta").value;
     const departamentoSelect = document.getElementById("departamento");
     const departamentoDiv = document.getElementById("departamentoDiv");
+    const formularioDiv = document.getElementById("formularioDiv");
 
+    // Limpiar select de departamentos
     departamentoSelect.innerHTML = '<option value="" disabled selected>Elige un departamento</option>';
+    formularioDiv.style.display = "none"; // Ocultar formulario mientras se actualiza
+
     if (puerta && datos.departamentos[puerta]) {
       datos.departamentos[puerta].forEach(dep => {
         const option = document.createElement("option");
-        option.value = dep.numero;
-        option.textContent = dep.nombre;
+        option.value = dep.numero; // Número de teléfono
+        option.textContent = dep.nombre; // Nombre del departamento
         departamentoSelect.appendChild(option);
       });
-      departamentoDiv.style.display = "block";
+
+      departamentoDiv.style.display = "block"; // Mostrar select de departamentos
+    } else {
+      departamentoDiv.style.display = "none"; // Ocultar si no hay departamentos
     }
   }
 
-  function enviarWhatsApp() {
-    const captchaResponse = grecaptcha.getResponse();
-    if (!captchaResponse) {
-      alert("Por favor, verifica el CAPTCHA.");
-      return;
+  // Mostrar formulario al seleccionar un departamento
+  document.getElementById("departamento").addEventListener("change", () => {
+    const departamentoValue = document.getElementById("departamento").value;
+    const formularioDiv = document.getElementById("formularioDiv");
+    if (departamentoValue) {
+      formularioDiv.style.display = "block"; // Mostrar formulario solo si hay valor
+    } else {
+      formularioDiv.style.display = "none"; // Ocultar si no hay valor
     }
-    const numero = document.getElementById("departamento").value;
-    const nombre = document.getElementById("nombre").value.trim();
-    const mensaje = document.getElementById("mensaje").value.trim();
-
-    if (!numero || !nombre || !mensaje) {
-      alert("Por favor, completa todos los campos.");
-      return;
-    }
-
-    const url = `https://wa.me/${numero}?text=${encodeURIComponent(`Hola, soy ${nombre}. ${mensaje}`)}`;
-    window.open(url, "_blank");
-  }
-
-  function realizarLlamada() {
-    const numero = document.getElementById("departamento").value;
-    if (numero) window.location.href = `tel:${numero}`;
-  }
+  });
 </script>
 
 </body>
