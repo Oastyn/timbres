@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Timbre Edificio 3</title>
+  <title>Timbre Edificios</title>
   <style>
-    /* Fondo para toda la página */
+    /* Estilo básico */
     body {
-      background-image: url('back1.jpg'); /* Cambia por la ruta de tu imagen */
+      background-image: url('back1.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -20,12 +20,6 @@
     h1 {
       font-size: 48px;
       margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 14px;
-      color: lightgray;
-      margin-bottom: 20px;
     }
 
     select, input, textarea, button {
@@ -48,7 +42,6 @@
       background-color: #45a049;
     }
 
-    /* Cuadro blanco para secciones */
     .content-box {
       background-color: white;
       color: black;
@@ -65,53 +58,8 @@
 <body>
 
 <div class="content-box">
-  <h1>Timbre Edificio 3</h1>
-  <p style="font-size: 16px; color: gray; text-align: center;">
-  Si quieres que tu departamento esté incluido, mándame un mensaje a  WhatsApp al          
-  <a href="https://wa.me/5491138984426" target="_blank" style="color: blackgreen; text-decoration: none;">
-    11 3898 4426
-  </a>
-    , o podes completar el siguiente formulario.
-</p>
-  <div style="text-align: center; margin-top: 24px;">
-    <button 
-        onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScCYWAWLMzH9QeTylZOV6ZmWd75MBYXNV4Z0nVFb6ptZ5chTw/viewform', '_blank');" 
-        style="
-            background-color: #4CAF50; 
-            color: white; 
-            font-size: 16px; 
-            padding: 10px 20px; 
-            border: none; 
-            border-radius: 5px; 
-            cursor: pointer;
-        ">
-        Completar Formulario
-    </button>
-</div>
-    <p style="font-size: 16px; color: gray; text-align: center;">
-  Aprovecha y unite al grupo de Whatsapp del Barrio!         
-</p>
-  <div style="text-align: center; margin-top: 24px;">
-  <a href="https://chat.whatsapp.com/IXwFoP0DEcEI5xPZpCxbXw" target="_blank" style="text-decoration: none;">
-    <button style="
-      background-color: #25D366;
-      color: white;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    ">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 20px; height: 20px;">
-      Unirme al grupo de WhatsApp
-    </button>
-  </a>
-</div>
+  <h1>Timbre Edificios</h1>
+  <p>Selecciona tu edificio, puerta y departamento para continuar.</p>
 </div>
 
 <!-- Selección de Edificio -->
@@ -144,7 +92,7 @@
 <!-- Selección de Departamento -->
 <div class="content-box" id="departamentoDiv" style="display: none;">
   <label for="departamento">Selecciona el departamento:</label>
-  <select id="departamento">
+  <select id="departamento" onchange="habilitarOpciones()">
     <option value="" disabled selected>Elige un departamento</option>
   </select>
 </div>
@@ -162,10 +110,10 @@
   <br>
 
   <!-- Botón para enviar a WhatsApp -->
-  <button onclick="enviarWhatsApp()">Enviar WhatsApp</button>
+  <button id="btnWhatsApp" onclick="enviarWhatsApp()" disabled>Enviar WhatsApp</button>
   
   <!-- Botón para llamar -->
-  <button onclick="realizarLlamada()">Llamar</button>
+  <button id="btnLlamar" onclick="realizarLlamada()" disabled>Llamar</button>
 </div>
 
 <!-- Botón para Instructivo de Cámaras -->
@@ -177,8 +125,11 @@
 
 <script>
   const datos = {
-    1: { 1: [{ nombre: "PB A", numero: "5491131760605" }, { nombre: "PB B", numero: "0000000000" }], 2: [{ nombre: "1A", numero: "0000000000" }] },
-    // Completa con datos de edificios restantes...
+    1: {
+      1: [{ nombre: "PB A", numero: "1122334455" }, { nombre: "PB B", numero: "1122334456" }],
+      2: [{ nombre: "1A", numero: "1122334457" }]
+    },
+    // Añadir más edificios y puertas según sea necesario...
   };
 
   function mostrarPuertas() {
@@ -200,7 +151,7 @@
 
     departamentoSelect.innerHTML = '<option value="" disabled selected>Elige un departamento</option>';
 
-    if (edificio && puerta && datos[edificio] && datos[edificio][puerta]) {
+    if (datos[edificio] && datos[edificio][puerta]) {
       datos[edificio][puerta].forEach(dep => {
         const option = document.createElement("option");
         option.value = dep.numero;
@@ -212,13 +163,18 @@
     }
   }
 
-  function enviarWhatsApp() {
-    const captchaResponse = grecaptcha.getResponse();
-    if (!captchaResponse) {
-      alert("Por favor, verifica el CAPTCHA.");
-      return;
-    }
+  function habilitarOpciones() {
+    const btnWhatsApp = document.getElementById("btnWhatsApp");
+    const btnLlamar = document.getElementById("btnLlamar");
+    const departamento = document.getElementById("departamento").value;
 
+    if (departamento) {
+      btnWhatsApp.disabled = false;
+      btnLlamar.disabled = false;
+    }
+  }
+
+  function enviarWhatsApp() {
     const numero = document.getElementById("departamento").value;
     const nombre = document.getElementById("nombre").value.trim();
     const mensaje = document.getElementById("mensaje").value.trim();
@@ -235,12 +191,6 @@
   }
 
   function realizarLlamada() {
-    const captchaResponse = grecaptcha.getResponse();
-    if (!captchaResponse) {
-      alert("Por favor, verifica el CAPTCHA.");
-      return;
-    }
-
     const numero = document.getElementById("departamento").value;
 
     if (!numero) {
